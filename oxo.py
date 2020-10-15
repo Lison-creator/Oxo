@@ -36,7 +36,7 @@ def win():
         if give(x +2, y) == player:
             return True
         if give(x - 1, y) == player:
-        return True
+            return True
     if give(x - 1, y ) == player and give(x - 2, y) == player:
         return True
 
@@ -51,9 +51,11 @@ def win():
     return False
 
 def display():
-    txt = " 0 1 2 3 4 \n"
+    txt = "  01234 \n"
     y = 0
     for ligne in tableau:
+        txt += str(y) + " "
+        y += 1
         for data in ligne:
             txt += data
         txt += "\n"
@@ -80,7 +82,31 @@ def full():
             if data == ".":
                 full = False
     return False
+
+def load():
+    sauve = open("oxo.dat")
+    data = sauve.read()
+    sauve.close()
+    data = data.split("\n")
+
+    for ligne in data:
+        del board[0]
+        new_ligne = []
+
+        for item in ligne:
+
+
+def sauvegarde():
+    user_sauve = input("Voulez-vous sauvegarder la partie? O/N: ")
+    if user_sauve == "O" or user_sauve == "o":
+        sauve = open("oxo_sauvegarde.txt", "w")
+        lecture = open("oxo.dat")
+        data = lecture.read()
+        sauvegarde = sauve.write(data)
+
+
     
+
 
 # Le script commence ici
 
@@ -121,6 +147,27 @@ while True:
         check_victory(x, y)
         turn = 1
     if check_victory(x, y) == True:
-        print(f"{player} Wins !")
+        print(f" :star2: {player} Wins  :star2: !")
+    
+# autre méthode:
+
+victory = False
+
+while not victory:
+
+    print("Player 1:")
+    victory = player_plays(player1)
+
+    if victory:
+        display()
+        print("Player 1 a gagné")
+    else:
+        print("Player 2:")
+        victory = player_plays(player2)
+
+        if victory:
+            display()
+            print("Player 2 a gagné")
+
     
         
